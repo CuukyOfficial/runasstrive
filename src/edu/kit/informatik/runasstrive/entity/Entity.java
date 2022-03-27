@@ -3,7 +3,6 @@ package edu.kit.informatik.runasstrive.entity;
 import edu.kit.informatik.runasstrive.Game;
 import edu.kit.informatik.runasstrive.ability.ApplicableType;
 import edu.kit.informatik.runasstrive.ability.EntityApplicable;
-import edu.kit.informatik.runasstrive.stage.Stage;
 import edu.kit.informatik.runasstrive.stage.Team;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public interface Entity {
 
     void prepareTurn();
 
-    void turn(Stage stage, Team[] opponents);
+    void turn(Team team, Team[] opponents);
 
     void reward(Consumer<List<EntityApplicable>> consumer, List<EntityApplicable> loot, int allowed);
 

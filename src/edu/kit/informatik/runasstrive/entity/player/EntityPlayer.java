@@ -1,6 +1,7 @@
 package edu.kit.informatik.runasstrive.entity.player;
 
 import edu.kit.informatik.runasstrive.Game;
+import edu.kit.informatik.runasstrive.ability.ApplicableType;
 import edu.kit.informatik.runasstrive.ability.EntityApplicable;
 import edu.kit.informatik.runasstrive.entity.Behaviour;
 import edu.kit.informatik.runasstrive.entity.EntityType;
@@ -15,7 +16,7 @@ public class EntityPlayer extends LivingEntity implements Player {
     public EntityPlayer(Game game, EntityType entityType) {
         super(game, entityType);
 
-        this.dice = GameDice.D4;
+        this.dice = PlayerDice.D4;
     }
 
     @Override
@@ -26,6 +27,11 @@ public class EntityPlayer extends LivingEntity implements Player {
     @Override
     protected void addFocus(int focus) {
         super.addFocus(focus < 0 && this.getFocus() + focus < 1 ? -(this.getFocus() - 1) : focus);
+    }
+
+    @Override
+    protected boolean damage(int damage, ApplicableType attackType) {
+        return super.damage(damage, attackType) && this.getHealth() > 0;
     }
 
     @Override

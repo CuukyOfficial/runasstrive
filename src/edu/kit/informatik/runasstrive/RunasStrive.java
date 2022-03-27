@@ -22,7 +22,6 @@ public class RunasStrive implements Game {
 
     private final SubscriptionHolder eventHandler;
     private Player player;
-    private int[] seeds;
     private Level level;
 
     /**
@@ -34,13 +33,12 @@ public class RunasStrive implements Game {
 
     private void startLevel(int level) {
         this.level = new RunasStriveLevel(this, level);
-        this.level.start(this.seeds);
+        this.level.start();
     }
 
     @Override
-    public void start(EntityType playerType, int[] seeds) {
+    public void start(EntityType playerType) {
         this.player = new EntityPlayer(this, playerType);
-        this.seeds = seeds;
         this.startLevel(1);
     }
 

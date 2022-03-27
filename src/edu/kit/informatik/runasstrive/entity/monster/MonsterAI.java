@@ -4,28 +4,37 @@ import edu.kit.informatik.runasstrive.ability.EntityApplicable;
 import edu.kit.informatik.runasstrive.entity.Behaviour;
 import edu.kit.informatik.runasstrive.entity.Entity;
 import edu.kit.informatik.runasstrive.entity.SkipNoChoiceBehaviour;
-import edu.kit.informatik.util.NumberUtils;
+import edu.kit.informatik.util.SaveIterator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class MonsterAI extends SkipNoChoiceBehaviour implements Behaviour {
 
     private final Entity entity;
-    private int lastAbility = 0;
+    private SaveIterator<EntityApplicable> iterator;
 
     public MonsterAI(Entity entity) {
         this.entity = entity;
     }
 
+    private List<EntityApplicable> checkOptions(EntityApplicable[] options) {
+        List<EntityApplicable> abilities = Arrays.stream(options).collect(Collectors.toList());
+        if (this.iterator == null || !this.iterator.isEqual(abilities))
+            this.iterator = new SaveIterator<>(abilities);
+        return abilities;
+    }
+
     @Override
-    public void chooseSaveAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
-        int last = this.lastAbility;
-        this.lastAbility = NumberUtils.getNext(this.lastAbility, options.length);
-        if (!this.entity.canPerform(options[last]))
+    public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
+        List<EntityApplicable> abilities = this.checkOptions(options);
+        EntityApplicable chosen = this.iterator.next();
+        if (!this.entity.canPerform(chosen))
             this.chooseAbility(consumer, options);
         else
-            consumer.accept(options[last]);
+            consumer.accept(chosen);
     }
 
     @Override
@@ -50,7 +59,8 @@ public class MonsterAI extends SkipNoChoiceBehaviour implements Behaviour {
 
     @Override
     public EntityApplicable getNext(EntityApplicable[] options) {
-        return options[this.lastAbility];
+        this.checkOptions(options);
+        return this.iterator.previewNext();
     }
 
     @Override

@@ -9,6 +9,7 @@ import edu.kit.informatik.runasstrive.ability.action.AbilityActionType;
 import edu.kit.informatik.runasstrive.ability.action.AbilityDefensiveAction;
 import edu.kit.informatik.runasstrive.ability.action.AbilityOffensiveAction;
 import edu.kit.informatik.runasstrive.ability.action.OffensiveAction;
+import edu.kit.informatik.runasstrive.event.Event;
 import edu.kit.informatik.runasstrive.event.entity.EntityAbilityGetEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityAbilityUseEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityDamageEvent;
@@ -16,11 +17,11 @@ import edu.kit.informatik.runasstrive.event.entity.EntityDeathEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityFocusGainEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityHealthGainEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityTurnEvent;
-import edu.kit.informatik.runasstrive.stage.Stage;
 import edu.kit.informatik.runasstrive.stage.Team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public abstract class LivingEntity implements Entity {
@@ -46,25 +47,14 @@ public abstract class LivingEntity implements Entity {
         this.game.getEventManager().notify(new EntityDeathEvent(this));
     }
 
-    private void damage(int damage, ApplicableType attackType) {
-        this.game.getEventManager().notify(new EntityDamageEvent(this, attackType, damage));
-        this.addHealth(-damage);
-    }
-
-    private void turn(Stage stage, Team[] opponents, EntityApplicable ability) {
-        this.game.getEventManager().notify(new EntityAbilityUseEvent(this, ability));
+    private void turn(Team team, Team[] opponents, EntityApplicable ability) {
         if (ability.getType().getAction() == AbilityActionType.OFFENSIVE) {
-            this.behaviour.chooseEnemy(target -> this.attack(stage, ability, target), opponents);
+            this.behaviour.chooseEnemy(target -> this.attack(team, ability, target), opponents);
         } else {
+            this.game.getEventManager().notify(new EntityAbilityUseEvent(this, ability));
             this.holding = ability;
-            stage.next();
+            team.next();
         }
-    }
-
-    private void addHealth(int add) {
-        if (add > 0) this.game.getEventManager().notify(new EntityHealthGainEvent(this, add));
-        this.health = Math.max(0, Math.min(this.health + add, this.getMaxHealth()));
-        if (this.health == 0) this.die();
     }
 
     private void trade(Runnable onComplete, List<EntityApplicable> trade) {
@@ -73,26 +63,43 @@ public abstract class LivingEntity implements Entity {
         onComplete.run();
     }
 
-    private void attack(Stage stage, EntityApplicable ability, Entity target) {
-        if (!ability.getType().needsDice()) this.attack(stage, ability, target, 0);
-        else this.behaviour.chooseDice(dice -> this.attack(stage, ability, target, dice), this.getMaxDice());
+    private void attack(Team team, EntityApplicable ability, Entity target) {
+        this.game.getEventManager().notify(new EntityAbilityUseEvent(this, ability));
+        if (!ability.getType().needsDice()) this.attack(team, ability, target, 0);
+        else this.behaviour.chooseDice(dice -> this.attack(team, ability, target, dice), this.getMaxDice());
     }
 
-    private void attack(Stage stage, EntityApplicable ability, Entity target, int dice) {
+    private void attack(Team team, EntityApplicable ability, Entity target, int dice) {
         AttackData attack = ability.attack(new AbilityDefensiveAction(this, target, this.focus, dice));
         target.damage(this, attack.getDamage(), ability.getType());
         if (attack.breaksFocus()) target.breakFocus();
         this.useAbility(ability);
-        stage.next();
+        team.next();
     }
 
     private void useAbility(EntityApplicable ability) {
         this.addFocus(ability.getFocusChange());
     }
 
+    private int calculateStatChange(int current, int max, int add, BiFunction<Entity, Integer, Event> event) {
+        int finalAdd = Math.max(-current, Math.min(add, max - current));
+        if (finalAdd > 0) this.game.getEventManager().notify(event.apply(this, finalAdd));
+        return finalAdd;
+    }
+
+    private void addHealth(int add) {
+        this.health += this.calculateStatChange(this.health, this.getMaxHealth(), add, EntityHealthGainEvent::new);
+        if (this.health <= 0) this.die();
+    }
+
     protected void addFocus(int focus) {
-        if (focus > 0) this.game.getEventManager().notify(new EntityFocusGainEvent(this, focus));
-        this.focus = Math.max(0, Math.min(this.focus + focus, this.getMaxFocus()));
+        this.focus += this.calculateStatChange(this.focus, this.getMaxFocus(), focus, EntityFocusGainEvent::new);
+    }
+
+    protected boolean damage(int damage, ApplicableType attackType) {
+        this.game.getEventManager().notify(new EntityDamageEvent(this, attackType, damage));
+        this.addHealth(-damage);
+        return true;
     }
 
     protected abstract int getMaxDice();
@@ -124,9 +131,9 @@ public abstract class LivingEntity implements Entity {
     }
 
     @Override
-    public void turn(Stage stage, Team[] opponents) {
-        this.game.getEventManager().notify(new EntityTurnEvent(this, stage));
-        this.behaviour.chooseAbility(ability -> this.turn(stage, opponents, ability),
+    public void turn(Team team, Team[] opponents) {
+        this.game.getEventManager().notify(new EntityTurnEvent(this, team.getStage()));
+        this.behaviour.chooseAbility(ability -> this.turn(team, opponents, ability),
             this.abilities.toArray(EntityApplicable[]::new));
     }
 
@@ -141,8 +148,11 @@ public abstract class LivingEntity implements Entity {
             this.useAbility(this.holding);
         }
 
-        if (effective > 0) this.damage(effective, attackType);
-        if (reflective > 0) source.damage(this, reflective, this.holding.getType());
+        if (effective > 0 && !this.damage(effective, attackType))
+            return;
+
+        if (reflective > 0)
+            source.damage(this, reflective, this.holding.getType());
     }
 
     @Override

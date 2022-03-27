@@ -1,22 +1,28 @@
 package edu.kit.informatik.runasstrive.stage;
 
 import edu.kit.informatik.runasstrive.entity.Entity;
-import edu.kit.informatik.util.NumberUtils;
+import edu.kit.informatik.util.SaveIterator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StageTeam implements Team {
 
+    private final Stage stage;
     private final List<Entity> member;
-    private int current = -1;
+    private SaveIterator<Entity> turn;
 
-    StageTeam(List<Entity> member) {
+    StageTeam(Stage stage, List<Entity> member) {
+        this.stage = stage;
         this.member = new ArrayList<>(member);
     }
 
     private boolean removeDead() {
         return this.member.removeIf(member -> member.getHealth() == 0);
+    }
+
+    private void prepareTurn() {
+        this.member.forEach(Entity::prepareTurn);
     }
 
     @Override
@@ -30,23 +36,25 @@ public class StageTeam implements Team {
     }
 
     @Override
-    public boolean hasFinished() {
-        return this.current == 0;
+    public void next() {
+        if (this.turn.isFinished() || this.stage.isOver()) this.stage.next();
+        else this.turn.next().turn(this, this.stage.getOpponents(this));
     }
 
     @Override
-    public void prepareTurn() {
-        this.member.forEach(Entity::prepareTurn);
-    }
-
-    @Override
-    public Entity getTurnEntity() {
-        this.current = NumberUtils.getNext(this.current, this.member.size());
-        return this.member.get(current);
+    public void turn() {
+        this.prepareTurn();
+        this.turn = new SaveIterator<>(this.member);
+        this.next();
     }
 
     @Override
     public Entity[] getMember() {
         return this.member.toArray(Entity[]::new);
+    }
+
+    @Override
+    public Stage getStage() {
+        return this.stage;
     }
 }

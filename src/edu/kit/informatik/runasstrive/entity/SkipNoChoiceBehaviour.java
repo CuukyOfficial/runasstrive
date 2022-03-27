@@ -19,11 +19,11 @@ public abstract class SkipNoChoiceBehaviour implements Behaviour {
         else this.chooseSaveEnemy(consumer, entities);
     }
 
-    @Override
-    public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
-        if (options.length == 1) consumer.accept(options[0]);
-        else this.chooseSaveAbility(consumer, options);
-    }
+   // @Override
+   // public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
+   //     if (options.length == 1) consumer.accept(options[0]);
+   //     else this.chooseSaveAbility(consumer, options);
+   // }
 
     @Override
     public void chooseHealDiscard(Consumer<List<EntityApplicable>> consumer, List<EntityApplicable> abilities) {
@@ -34,7 +34,7 @@ public abstract class SkipNoChoiceBehaviour implements Behaviour {
 
     public abstract void chooseSaveEnemy(Consumer<Entity> consumer, List<Entity> enemies);
 
-    public abstract void chooseSaveAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options);
+    // public abstract void chooseSaveAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options);
 
     public abstract void chooseSaveHealDiscard(Consumer<List<EntityApplicable>> consumer,
                                                List<EntityApplicable> abilities);

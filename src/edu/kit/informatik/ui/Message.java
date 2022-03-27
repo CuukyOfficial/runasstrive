@@ -79,11 +79,11 @@ public enum Message {
     /**
      * Ability gain message
      */
-    EVENT_ABILITY_GAIN("%s gains %s"),
+    EVENT_ABILITY_GAIN("%s gets %s"),
     /**
      * Entity win message
      */
-    EVENT_ENTITY_WIN("%s wins!"),
+    EVENT_ENTITY_WIN("%s won!"),
 
     // Fight
     /**
@@ -109,7 +109,7 @@ public enum Message {
     /**
      * Pick heal cards message
      */
-    PICK_HEAL_CARDS("%s (%s/%s) can discard ability cards for healing (or none)"),
+    PICK_HEAL_CARDS("%s (%s/%s HP) can discard ability cards for healing (or none)"),
 
     // Misc
     /**

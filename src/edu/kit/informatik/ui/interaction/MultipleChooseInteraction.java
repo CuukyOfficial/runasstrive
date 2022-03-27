@@ -18,19 +18,21 @@ import java.util.stream.Collectors;
 public class MultipleChooseInteraction<T> extends Interaction<List<T>> {
 
     private final List<T> list;
-    private final String message;
     private final MultipleNumberInteraction numberInteraction;
 
-    MultipleChooseInteraction(Consumer<List<T>> consumer, List<T> list, int minAmount, String message) {
+    MultipleChooseInteraction(Consumer<List<T>> consumer, List<T> list, int minAmount, int maxAmount, String message) {
         super(consumer);
 
         this.list = list;
-        this.message = message;
-        this.numberInteraction = new MultipleNumberInteraction(null, 1, list.size(), minAmount);
+        this.numberInteraction = new MultipleNumberInteraction(null, 1, list.size(), minAmount, maxAmount);
+
+        System.out.println(message);
+        this.printArray(this.list.toArray());
     }
 
-    public MultipleChooseInteraction(Consumer<List<T>> consumer, T[] array, int minAmount, String message) {
-        this(consumer, Arrays.stream(array).collect(Collectors.toList()), minAmount, message);
+    public MultipleChooseInteraction(Consumer<List<T>> consumer, T[] array, int minAmount, int maxAmount,
+                                     String message) {
+        this(consumer, Arrays.stream(array).collect(Collectors.toList()), minAmount, maxAmount, message);
     }
 
     @Override
@@ -43,8 +45,6 @@ public class MultipleChooseInteraction<T> extends Interaction<List<T>> {
 
     @Override
     public void printMessage() {
-        System.out.println(this.message);
-        this.printArray(this.list.toArray());
         this.numberInteraction.printMessage();
     }
 }

@@ -7,9 +7,6 @@ import edu.kit.informatik.runasstrive.event.GameStartEvent;
 import edu.kit.informatik.ui.GameOutputListener;
 import edu.kit.informatik.ui.Message;
 import edu.kit.informatik.ui.interaction.ChooseInteraction;
-import edu.kit.informatik.ui.interaction.EnterSeedInteraction;
-
-import java.util.Arrays;
 
 /**
  * Launches the game with a given entity type as player.
@@ -22,7 +19,6 @@ public class GameLauncher<T extends EntityType> {
 
     private final Game game;
     private T type;
-    private int[] seeds;
 
     /**
      * Uses the given entities to ask the player which character he/she wants to play.
@@ -35,18 +31,11 @@ public class GameLauncher<T extends EntityType> {
         this.game.getEventManager().notify(new GameStartEvent());
         new ChooseInteraction<>(type -> {
             this.type = type;
-            this.receivedSeeds();
+            this.start();
         }, entities, Message.CHARACTER_SELECT.toString()).interact();
     }
 
-    private void receivedSeeds() {
-        new EnterSeedInteraction(seeds -> {
-            this.seeds = Arrays.stream(seeds).mapToInt(Integer::valueOf).toArray();
-            this.start();
-        }).interact();
-    }
-
     private void start() {
-        this.game.start(this.type, this.seeds);
+        this.game.start(this.type);
     }
 }

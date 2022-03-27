@@ -8,9 +8,13 @@ public interface Stage {
 
     void next();
 
+    boolean isOver();
+
     int getStage();
 
     Level getLevel();
+
+    Team[] getOpponents(Team team);
 
     Team[] getTeams();
 

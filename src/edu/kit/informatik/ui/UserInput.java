@@ -49,7 +49,7 @@ public class UserInput extends SkipNoChoiceBehaviour implements PlayerBehaviour 
     }
 
     @Override
-    public void chooseSaveAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
+    public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
         new PickAbilityInteraction(consumer, options, this.player).interact();
     }
 

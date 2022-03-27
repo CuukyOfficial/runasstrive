@@ -18,12 +18,9 @@ public interface Level {
     void onStageEnd(Team winner);
 
     /**
-     * Starts the level with the given seeds.
-     * For more information see {@link Game}#start.
-     *
-     * @param seeds The seeds that will be used to shuffle
+     * Starts the level.
      */
-    void start(int[] seeds);
+    void start();
 
     /**
      * Returns the number of the level.

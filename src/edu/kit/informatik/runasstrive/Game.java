@@ -16,14 +16,10 @@ public interface Game {
 
     /**
      * Starts the game with the given player type.
-     * The given seeds will be used to shuffle the abilities and monsters.
-     * The seed at index 0 will be used to shuffle the player abilities.
-     * The seed at index 1 will be used to shuffle the monsters.
      *
      * @param playerType The type of the player
-     * @param seeds The seeds that will be used to shuffle
      */
-    void start(EntityType playerType, int[] seeds);
+    void start(EntityType playerType);
 
     /**
      * Tells the game that its level has ended.

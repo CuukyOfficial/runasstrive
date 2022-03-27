@@ -23,7 +23,7 @@ public enum RunaAbilityType implements ApplicableType {
     FIRE("Fire", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaFireAbility::new,
         LivingEntityElement.ICE),
     LIGHTNING("Lightning", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaLightningAbility::new,
-        LivingEntityElement.LIGHTNING);
+        LivingEntityElement.FIRE);
 
     private final String name;
     private final ActionType action;

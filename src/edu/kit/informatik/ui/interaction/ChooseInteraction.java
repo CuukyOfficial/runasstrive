@@ -5,22 +5,22 @@ import java.util.function.Consumer;
 
 public class ChooseInteraction<T> extends Interaction<T> {
 
-    private final MultipleChooseInteraction<T> numberInteraction;
+    private final MultipleChooseInteraction<T> interaction;
 
     public ChooseInteraction(Consumer<T> consumer, T[] array, String message) {
         super(consumer);
 
-        this.numberInteraction = new MultipleChooseInteraction<>(null, array, 1, message);
+        this.interaction = new MultipleChooseInteraction<>(null, array, 1, 1, message);
     }
 
     @Override
     public T parse(String value) {
-        List<T> chosen = this.numberInteraction.parse(value);
-        return chosen == null || chosen.size() != 1 ? null : chosen.get(0);
+        List<T> chosen = this.interaction.parse(value);
+        return chosen == null ? null : chosen.get(0);
     }
 
     @Override
     public void printMessage() {
-        this.numberInteraction.printMessage();
+        this.interaction.printMessage();
     }
 }

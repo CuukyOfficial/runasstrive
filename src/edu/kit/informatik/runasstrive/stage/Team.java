@@ -8,12 +8,12 @@ public interface Team {
 
     boolean isDead();
 
-    boolean hasFinished();
+    void turn();
 
-    void prepareTurn();
-
-    Entity getTurnEntity();
+    void next();
 
     Entity[] getMember();
+
+    Stage getStage();
 
 }

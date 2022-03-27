@@ -11,7 +11,7 @@ public class PickLootInteraction extends MultipleChooseInteraction<EntityApplica
     private final int amount;
 
     public PickLootInteraction(Consumer<List<EntityApplicable>> consumer, EntityApplicable[] array, int amount) {
-        super(consumer, array, amount, Message.PICK_LOOT_CARDS.format(amount));
+        super(consumer, array, amount, amount, Message.PICK_LOOT_CARDS.format(amount));
 
         this.amount = amount;
     }

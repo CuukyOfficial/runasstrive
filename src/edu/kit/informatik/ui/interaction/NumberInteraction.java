@@ -11,7 +11,7 @@ public class NumberInteraction extends Interaction<Integer> {
     public NumberInteraction(Consumer<Integer> consumer, int min, int max, Message message) {
         super(consumer);
 
-        this.numberInteraction = new MultipleNumberInteraction(null, min, max, 1, message);
+        this.numberInteraction = new MultipleNumberInteraction(null, min, max, 1, 1, message);
     }
 
     public NumberInteraction(Consumer<Integer> consumer, int min, int max) {

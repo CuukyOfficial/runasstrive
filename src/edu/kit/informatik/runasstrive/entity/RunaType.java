@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public enum RunaType implements EntityType {
 
-    MAGE("Mage", RunaAbilityType.FOCUS, RunaAbilityType.WATER),
     WARRIOR("Warrior", RunaAbilityType.THRUST, RunaAbilityType.PARRY),
+    MAGE("Mage", RunaAbilityType.FOCUS, RunaAbilityType.WATER),
     PALADIN("Paladin", RunaAbilityType.SLASH, RunaAbilityType.REFLECT);
 
     private final String typeName;

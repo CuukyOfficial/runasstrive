@@ -24,19 +24,22 @@ class MultipleNumberInteraction extends Interaction<Integer[]> {
     private final int min;
     private final int max;
     private final int minAmount;
+    private final int maxAmount;
     private final Message message;
 
-    public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount, Message message) {
+    public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount,
+                                     int maxAmount, Message message) {
         super(consumer);
 
         this.min = min;
         this.max = max;
-        this.message = message;
         this.minAmount = minAmount;
+        this.maxAmount = maxAmount;
+        this.message = message;
     }
 
-    public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount) {
-        this(consumer, min, max, minAmount, minAmount == 1 ? Message.ENTER_NUMBER : Message.ENTER_NUMBERS);
+    public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount, int maxAmount) {
+        this(consumer, min, max, minAmount, maxAmount, maxAmount <= 1 ? Message.ENTER_NUMBER : Message.ENTER_NUMBERS);
     }
 
     private Integer parseNumber(String value) {
@@ -69,16 +72,17 @@ class MultipleNumberInteraction extends Interaction<Integer[]> {
 
     @Override
     public Integer[] parse(String value) {
-        if (value.isEmpty()) return new Integer[0];
         String[] valueSplit = value.split(SEPARATOR);
         if (!value.matches(ALLOWED)) return null;
         Collection<Integer> numbers = new ArrayList<>();
-        for (String numberString : valueSplit) {
-            Integer number = this.parseNumber(numberString);
-            if (number == null || !this.allowsDuplication() && numbers.contains(number)) return null;
-            numbers.add(number);
+        if (!value.isEmpty()) {
+            for (String numberString : valueSplit) {
+                Integer number = this.parseNumber(numberString);
+                if (number == null || !this.allowsDuplication() && numbers.contains(number)) return null;
+                numbers.add(number);
+            }
         }
 
-        return numbers.size() < this.minAmount ? null : numbers.toArray(Integer[]::new);
+        return numbers.size() < this.minAmount || numbers.size() > this.maxAmount ? null : numbers.toArray(Integer[]::new);
     }
 }

@@ -12,7 +12,7 @@ abstract class OffensiveAbility extends Ability {
     }
 
     private boolean isEffectiveAgainst(Entity entity) {
-        return Arrays.stream(this.type.getEffective()).anyMatch(effect -> entity.getType().getElement() == effect);
+        return Arrays.asList(this.type.getEffective()).contains(entity.getType().getElement());
     }
 
     abstract int getDamage(int focus, int dice);

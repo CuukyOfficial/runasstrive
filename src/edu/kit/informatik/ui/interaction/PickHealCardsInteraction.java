@@ -11,7 +11,7 @@ public class PickHealCardsInteraction extends MultipleChooseInteraction<EntityAp
 
     public PickHealCardsInteraction(Consumer<List<EntityApplicable>> consumer, List<EntityApplicable> list,
                                     Player player) {
-        super(consumer, list, 0, Message.PICK_HEAL_CARDS
+        super(consumer, list, 0, list.size() - 1, Message.PICK_HEAL_CARDS
             .format(player.toString(), player.getHealth(), player.getMaxHealth()));
     }
 }

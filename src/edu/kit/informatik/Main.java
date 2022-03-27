@@ -17,6 +17,11 @@ public final class Main {
      * @param args Arguments for launching the game
      */
     public static void main(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Error, no start arguments expected");
+            return;
+        }
+
         new GameLauncher<>(RunaType.values());
     }
 }

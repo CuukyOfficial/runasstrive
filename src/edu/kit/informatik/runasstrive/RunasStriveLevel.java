@@ -9,6 +9,7 @@ import edu.kit.informatik.runasstrive.event.entity.EntityStageEnterEvent;
 import edu.kit.informatik.runasstrive.stage.RunasStriveStage;
 import edu.kit.informatik.runasstrive.stage.Stage;
 import edu.kit.informatik.runasstrive.stage.Team;
+import edu.kit.informatik.ui.interaction.EnterSeedInteraction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,9 @@ import java.util.stream.Stream;
  * This class will take care of shuffling the cards
  * and spawning the monsters in all the stages.
  * It will also give the winner team their rewards.
+ * The given seeds will be used to shuffle the abilities and monsters.
+ * The seed at index 0 will be used to shuffle the player abilities.
+ * The seed at index 1 will be used to shuffle the monsters.
  *
  * @author uvgsj
  * @version v0.1
@@ -84,14 +88,15 @@ public class RunasStriveLevel implements Level {
         this.createRoom(this.stage.getStage() + 1);
     }
 
-    private void next(List<EntityApplicable> remove) {
-        this.playerAbilities.removeAll(remove);
-        this.game.getPlayer().addAbilities(remove);
+    private void next(List<EntityApplicable> remove, List<EntityApplicable> options) {
+        if (remove.size() > 0) {
+            this.game.getPlayer().addAbilities(remove);
+            this.playerAbilities.removeAll(options);
+        }
         this.game.getPlayer().heal(this::next);
     }
 
-    @Override
-    public void start(int[] seeds) {
+    private void start(Integer[] seeds) {
         this.getPlayerAbilities().forEach(this.playerAbilities::add);
         Collections.shuffle(this.playerAbilities, new Random(seeds[0]));
         MonsterType.getTypes(this.level).stream().map(this::createMonster).forEach(this.monsters::add);
@@ -100,14 +105,19 @@ public class RunasStriveLevel implements Level {
     }
 
     @Override
+    public void start() {
+        new EnterSeedInteraction(this::start).interact();
+    }
+
+    @Override
     public void onStageEnd(Team winner) {
         if (this.stage.getStage() >= MAX_STAGES || !winner.hasMember(this.game.getPlayer()))
             this.game.onLevelEnd(winner);
         else {
             int killed = this.getMonsterAmount(this.stage.getStage());
-            int offer = Math.min(this.playerAbilities.size() - 1, killed * 2);
+            int offer = Math.min(this.playerAbilities.size(), killed * 2);
             List<EntityApplicable> loot = new ArrayList<>(this.playerAbilities.subList(0, offer));
-            this.game.getPlayer().reward(this::next, loot, killed);
+            this.game.getPlayer().reward(remove -> this.next(remove, loot), loot, killed);
         }
     }
 
