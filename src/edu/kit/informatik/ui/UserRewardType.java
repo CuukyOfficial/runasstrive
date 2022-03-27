@@ -18,6 +18,9 @@ import java.util.function.Consumer;
  */
 public enum UserRewardType implements RewardType {
 
+    /**
+     * Option to get new cards
+     */
     NEW_ABILITY_CARDS("new ability cards") {
         @Override
         public void onChoose(PlayerBehaviour behaviour, Consumer<List<EntityApplicable>> choose,
@@ -25,6 +28,9 @@ public enum UserRewardType implements RewardType {
             behaviour.chooseLoot(choose, options, amount);
         }
     },
+    /**
+     * Option to upgrade player dice
+     */
     NEXT_PLAYER_DICE("next player dice") {
         @Override
         public void onChoose(PlayerBehaviour behaviour, Consumer<List<EntityApplicable>> choose,

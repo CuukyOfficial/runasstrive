@@ -2,7 +2,6 @@ package edu.kit.informatik.runasstrive.ability;
 
 import edu.kit.informatik.runasstrive.ability.action.DefensiveAction;
 import edu.kit.informatik.runasstrive.ability.action.OffensiveAction;
-import edu.kit.informatik.ui.Message;
 
 public class Ability implements EntityApplicable {
 
@@ -41,6 +40,6 @@ public class Ability implements EntityApplicable {
 
     @Override
     public String toString() {
-        return Message.LIST_ENTRY_FORMAT.format(this.type.getName(), this.level);
+        return this.type.getName() + "(" + this.level + ")";
     }
 }

@@ -40,6 +40,12 @@ public class RunasStriveLevel implements Level {
     private final List<Entity> monsters;
     private Stage stage;
 
+    /**
+     * Creates a new level.
+     *
+     * @param game The game of the level
+     * @param level The level number of the level
+     */
     RunasStriveLevel(Game game, int level) {
         this.game = game;
         this.level = level;
@@ -57,8 +63,8 @@ public class RunasStriveLevel implements Level {
 
     private List<Entity> getMonsters(int room) {
         int amount = this.getMonsterAmount(room);
-        List<Entity> monsters = amount == 0 ? List.of(this.createMonster(MonsterType.getBoss(this.level))) :
-            new ArrayList<>(this.monsters.subList(0, amount));
+        List<Entity> monsters = amount == 0 ? List.of(this.createMonster(MonsterType.getBoss(this.level)))
+            : new ArrayList<>(this.monsters.subList(0, amount));
         this.monsters.removeAll(monsters);
         return monsters;
     }

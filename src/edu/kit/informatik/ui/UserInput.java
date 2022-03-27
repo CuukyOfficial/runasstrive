@@ -29,6 +29,11 @@ public class UserInput extends SkipNoChoiceBehaviour implements PlayerBehaviour 
 
     private final Player player;
 
+    /**
+     * Create new user input.
+     *
+     * @param player The player the input will use
+     */
     public UserInput(Player player) {
         this.player = player;
     }

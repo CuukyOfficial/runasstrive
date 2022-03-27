@@ -25,6 +25,9 @@ public class RunasStrive implements Game {
     private int[] seeds;
     private Level level;
 
+    /**
+     * Creates new Runas Strive game and creates new event handler.
+     */
     public RunasStrive() {
         this.eventHandler = new EventHandler();
     }
