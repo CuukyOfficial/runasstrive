@@ -47,6 +47,11 @@ public enum UserRewardType implements RewardType {
 
     private final String message;
 
+    /**
+     * Creates new user reward type.
+     *
+     * @param message The message of the reward type
+     */
     UserRewardType(String message) {
         this.message = message;
     }

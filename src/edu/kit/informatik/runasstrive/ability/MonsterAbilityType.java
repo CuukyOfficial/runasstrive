@@ -64,6 +64,14 @@ public enum MonsterAbilityType implements ApplicableType {
     private final ApplicableSource source;
     private final Function<Integer, Ability> abilityCreator;
 
+    /**
+     * Creates new ability type.
+     *
+     * @param name The name of the ability
+     * @param action The action of the ability
+     * @param source The source of the ability
+     * @param abilityCreator The creator of the ability
+     */
     MonsterAbilityType(String name, ActionType action, ApplicableSource source,
                        Function<Integer, Ability> abilityCreator) {
         this.name = name;

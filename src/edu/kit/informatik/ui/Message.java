@@ -135,6 +135,11 @@ public enum Message {
 
     private final String message;
 
+    /**
+     * Creates new message.
+     *
+     * @param message The message
+     */
     Message(String message) {
         this.message = message;
     }

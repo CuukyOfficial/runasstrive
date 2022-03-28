@@ -71,6 +71,16 @@ public enum RunaAbilityType implements ApplicableType {
     private final boolean dice;
     private final Function<Integer, Ability> abilityCreator;
 
+    /**
+     * Creates new runa ability type.
+     *
+     * @param name The name of the ability
+     * @param action The action of the ability
+     * @param source The source of the ability
+     * @param abilityCreator The creator of the ability
+     * @param dice If the ability needs dice
+     * @param effective Against which elements the ability is effective
+     */
     RunaAbilityType(String name, ActionType action, ApplicableSource source, Function<Integer,
         Ability> abilityCreator, boolean dice, EntityElement... effective) {
         this.name = name;
@@ -81,6 +91,15 @@ public enum RunaAbilityType implements ApplicableType {
         this.abilityCreator = abilityCreator;
     }
 
+    /**
+     * Creates new runa ability type.
+     *
+     * @param name The name of the ability
+     * @param action The action of the ability
+     * @param source The source of the ability
+     * @param abilityCreator The creator of the ability
+     * @param effective Against which elements the ability is effective
+     */
     RunaAbilityType(String name, ActionType action, ApplicableSource source, Function<Integer,
         Ability> abilityCreator, EntityElement... effective) {
         this(name, action, source, abilityCreator, false, effective);
