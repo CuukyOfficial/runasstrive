@@ -126,6 +126,16 @@ public enum MonsterType implements EntityType {
     private final EntityElement element;
     private final AbilityInfo[] abilities;
 
+    /**
+     * Creates new monster type.
+     *
+     * @param name The name of the monster
+     * @param maxHealth The max health of the monster
+     * @param level The level of the monster
+     * @param boss If the monster is a boss
+     * @param element The element of the monster
+     * @param abilities The default abilities of the monster
+     */
     MonsterType(String name, int maxHealth, int level, boolean boss, EntityElement element, AbilityInfo... abilities) {
         this.name = name;
         this.maxHealth = maxHealth;
