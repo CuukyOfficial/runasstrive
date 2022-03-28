@@ -4,6 +4,8 @@ package edu.kit.informatik.ui.interaction;
  * Describes an object that can parse something.
  *
  * @param <T> The object this can parse
+ * @author uvgsj
+ * @version v0.1
  */
 public interface InputParser<T> {
 

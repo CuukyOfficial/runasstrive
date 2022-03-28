@@ -27,6 +27,8 @@ public class RunasStrive implements Game {
 
     /**
      * Creates new Runas Strive game and creates new event handler.
+     *
+     * @param seedProvider The provider for the seeds
      */
     public RunasStrive(SeedProvider seedProvider) {
         this.eventHandler = new EventHandler();

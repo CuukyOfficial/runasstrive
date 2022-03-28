@@ -19,6 +19,12 @@ class AbilityInfo {
     private final int stage;
     private final ApplicableType[] abilities;
 
+    /**
+     * Creates new ability info.
+     *
+     * @param stage The level of the abilities
+     * @param abilities The abilities
+     */
     public AbilityInfo(int stage, ApplicableType... abilities) {
         this.stage = stage;
         this.abilities = abilities;

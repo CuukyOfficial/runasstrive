@@ -11,7 +11,7 @@ import edu.kit.informatik.ui.interaction.PickAbilityInteraction;
 import edu.kit.informatik.ui.interaction.PickHealCardsInteraction;
 import edu.kit.informatik.ui.interaction.PickLootInteraction;
 import edu.kit.informatik.ui.interaction.PickRewardTypeChooseInteraction;
-import edu.kit.informatik.ui.interaction.PickTargetChooseInteraction;
+import edu.kit.informatik.ui.interaction.PickTargetInteraction;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +55,7 @@ public class UserInput extends SkipNoChoiceBehaviour implements PlayerBehaviour 
 
     @Override
     public void chooseSaveEnemy(Consumer<Entity> consumer, List<Entity> enemies) {
-        new PickTargetChooseInteraction(consumer, enemies.toArray(Entity[]::new), this.player).interact();
+        new PickTargetInteraction(consumer, enemies.toArray(Entity[]::new), this.player).interact();
     }
 
     @Override

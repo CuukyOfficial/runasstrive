@@ -50,6 +50,7 @@ public class RunasStriveLevel implements Level {
      *
      * @param game The game of the level
      * @param level The level number of the level
+     * @param seedProvider The provider for the seeds
      */
     RunasStriveLevel(Game game, int level, SeedProvider seedProvider) {
         this.game = game;

@@ -7,21 +7,60 @@ import edu.kit.informatik.runasstrive.entity.LivingEntityElement;
 
 import java.util.function.Function;
 
+/**
+ * Contains all the (default) runa abilities.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public enum RunaAbilityType implements ApplicableType {
 
+    /**
+     * The runa ability slash
+     */
     SLASH("Slash", AbilityActionType.OFFENSIVE, AbilitySource.PHYSICAL, SlashAbility::new, true),
+    /**
+     * The runa ability swing
+     */
     SWING("Swing", AbilityActionType.OFFENSIVE, AbilitySource.PHYSICAL, SwingAbility::new, true),
+    /**
+     * The runa ability thrust
+     */
     THRUST("Thrust", AbilityActionType.OFFENSIVE, AbilitySource.PHYSICAL, ThrustAbility::new, true),
+    /**
+     * The runa ability pierce
+     */
     PIERCE("Pierce", AbilityActionType.OFFENSIVE, AbilitySource.PHYSICAL, PierceAbility::new, true),
+    /**
+     * The runa ability parry
+     */
     PARRY("Parry", AbilityActionType.DEFENSIVE, AbilitySource.PHYSICAL, ParryAbility::new),
-    FOCUS("Focus", null, null, FocusAbility::new),
+    /**
+     * The runa ability focus
+     */
+    FOCUS("Focus", null, null, RunaFocusAbility::new),
+    /**
+     * The runa ability reflect
+     */
     REFLECT("Reflect", AbilityActionType.DEFENSIVE, AbilitySource.MAGICAL, ReflectAbility::new),
+    /**
+     * The runa ability water
+     */
     WATER("Water", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaWaterAbility::new,
         LivingEntityElement.LIGHTNING),
+    /**
+     * The runa ability ice
+     */
     ICE("Ice", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaIceAbility::new,
         LivingEntityElement.WATER),
+    /**
+     * The runa ability fire
+     */
     FIRE("Fire", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaFireAbility::new,
         LivingEntityElement.ICE),
+    /**
+     * The runa ability lightning
+     */
     LIGHTNING("Lightning", AbilityActionType.OFFENSIVE, AbilitySource.MAGICAL, RunaLightningAbility::new,
         LivingEntityElement.FIRE);
 

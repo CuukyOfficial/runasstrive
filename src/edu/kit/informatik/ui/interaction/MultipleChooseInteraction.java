@@ -20,6 +20,15 @@ public class MultipleChooseInteraction<T> extends Interaction<List<T>> {
     private final List<T> list;
     private final MultipleNumberInteraction numberInteraction;
 
+    /**
+     * Creates new multiple choose interaction.
+     *
+     * @param consumer The consumer for the chosen elements
+     * @param list The list of options
+     * @param minAmount The min amount of chosen options
+     * @param maxAmount The max amount of chosen otions
+     * @param message The message that will be printed
+     */
     MultipleChooseInteraction(Consumer<List<T>> consumer, List<T> list, int minAmount, int maxAmount, String message) {
         super(consumer);
 
@@ -30,7 +39,16 @@ public class MultipleChooseInteraction<T> extends Interaction<List<T>> {
         this.printArray(this.list.toArray());
     }
 
-    public MultipleChooseInteraction(Consumer<List<T>> consumer, T[] array, int minAmount, int maxAmount,
+    /**
+     * Creates new multiple choose interaction.
+     *
+     * @param consumer The consumer for the chosen elements
+     * @param array The array of options
+     * @param minAmount The min amount of chosen options
+     * @param maxAmount The max amount of chosen otions
+     * @param message The message that will be printed
+     */
+    MultipleChooseInteraction(Consumer<List<T>> consumer, T[] array, int minAmount, int maxAmount,
                                      String message) {
         this(consumer, Arrays.stream(array).collect(Collectors.toList()), minAmount, maxAmount, message);
     }

@@ -21,7 +21,7 @@ public enum UserRewardType implements RewardType {
     /**
      * Option to get new cards
      */
-    NEW_ABILITY_CARDS("new ability cards") {
+    NEW_ABILITY_CARDS(Message.PICK_NEW_ABILITY.toString()) {
         @Override
         public void onChoose(PlayerBehaviour behaviour, Consumer<List<EntityApplicable>> choose,
                              List<EntityApplicable> options, int amount) {
@@ -31,7 +31,7 @@ public enum UserRewardType implements RewardType {
     /**
      * Option to upgrade player dice
      */
-    NEXT_PLAYER_DICE("next player dice") {
+    NEXT_PLAYER_DICE(Message.PICK_PLAYER_DICE.toString()) {
         @Override
         public void onChoose(PlayerBehaviour behaviour, Consumer<List<EntityApplicable>> choose,
                              List<EntityApplicable> options, int amount) {

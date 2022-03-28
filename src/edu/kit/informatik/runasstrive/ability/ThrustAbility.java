@@ -1,7 +1,20 @@
 package edu.kit.informatik.runasstrive.ability;
 
+/**
+ * Represents thrust ability.
+ * Deals 6 * n + w damage.
+ * Additionally, if w >= 6 it will deal 4 * n damage extra.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 class ThrustAbility extends OffensiveAbility {
 
+    /**
+     * Creates a new ability with the given level.
+     *
+     * @param level The level
+     */
     ThrustAbility(int level) {
         super(RunaAbilityType.THRUST, level);
     }

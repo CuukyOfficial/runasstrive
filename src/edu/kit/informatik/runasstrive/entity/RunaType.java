@@ -79,6 +79,12 @@ public enum RunaType implements EntityType {
         return this.typeName;
     }
 
+    /**
+     * Gets the runa type by name.
+     *
+     * @param typeName The name
+     * @return The runa type
+     */
     public static RunaType getType(String typeName) {
         // Filter types and returns matching one
         return Arrays.stream(values()).filter(type -> type.typeName.equals(typeName))

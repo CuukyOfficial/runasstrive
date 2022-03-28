@@ -36,8 +36,18 @@ public interface Team {
      */
     void next();
 
+    /**
+     * Returns the member of the team
+     *
+     * @return The member
+     */
     Entity[] getMember();
 
+    /**
+     * Returns the stage of the team
+     *
+     * @return The stage of the team
+     */
     Stage getStage();
 
 }

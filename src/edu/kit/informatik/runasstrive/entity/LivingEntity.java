@@ -6,9 +6,9 @@ import edu.kit.informatik.runasstrive.ability.AttackData;
 import edu.kit.informatik.runasstrive.ability.EntityApplicable;
 import edu.kit.informatik.runasstrive.ability.RunaAbilityType;
 import edu.kit.informatik.runasstrive.ability.action.AbilityActionType;
-import edu.kit.informatik.runasstrive.ability.action.AbilityDefensiveAction;
-import edu.kit.informatik.runasstrive.ability.action.AbilityOffensiveAction;
-import edu.kit.informatik.runasstrive.ability.action.OffensiveAction;
+import edu.kit.informatik.runasstrive.ability.action.AbilityOffensiveSourceActionInfo;
+import edu.kit.informatik.runasstrive.ability.action.AbilityOffensiveTargetActionInfo;
+import edu.kit.informatik.runasstrive.ability.action.OffensiveTargetActionInfo;
 import edu.kit.informatik.runasstrive.event.Event;
 import edu.kit.informatik.runasstrive.event.entity.EntityAbilityGetEvent;
 import edu.kit.informatik.runasstrive.event.entity.EntityAbilityUseEvent;
@@ -87,7 +87,7 @@ public abstract class LivingEntity implements Entity {
     }
 
     private void attack(Team team, EntityApplicable ability, Entity target, int dice) {
-        AttackData attack = ability.attack(new AbilityDefensiveAction(this, target, this.focus, dice));
+        AttackData attack = ability.attack(new AbilityOffensiveSourceActionInfo(this, target, this.focus, dice));
         target.damage(this, attack.getDamage(), ability.getType());
         if (attack.breaksFocus()) target.breakFocus();
         this.useAbility(ability);
@@ -181,7 +181,7 @@ public abstract class LivingEntity implements Entity {
         int effective = damage;
         int reflective = 0;
         if (this.holding != null && this.holding.getType().getAction() == AbilityActionType.DEFENSIVE) {
-            OffensiveAction action = new AbilityOffensiveAction(source, this, attackType, damage);
+            OffensiveTargetActionInfo action = new AbilityOffensiveTargetActionInfo(source, this, attackType, damage);
             effective -= this.holding.defend(action);
             reflective = this.holding.reflect(action);
             this.useAbility(this.holding);

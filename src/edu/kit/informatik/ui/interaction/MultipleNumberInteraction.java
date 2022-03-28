@@ -27,6 +27,16 @@ class MultipleNumberInteraction extends Interaction<Integer[]> {
     private final int maxAmount;
     private final Message message;
 
+    /**
+     * Creates new multiple number interaction.
+     *
+     * @param consumer The consumer of the numbers
+     * @param min The min value of any number
+     * @param max The max value of any number
+     * @param minAmount The min amount of numbers
+     * @param maxAmount The max amount of numbers
+     * @param message The message that will be printed
+     */
     public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount,
                                      int maxAmount, Message message) {
         super(consumer);
@@ -38,6 +48,16 @@ class MultipleNumberInteraction extends Interaction<Integer[]> {
         this.message = message;
     }
 
+    /**
+     * Creates new multiple number interaction.
+     * Will choose messages based on max amount of numbers.
+     *
+     * @param consumer The consumer of the numbers
+     * @param min The min value of any number
+     * @param max The max value of any number
+     * @param minAmount The min amount of numbers
+     * @param maxAmount The max amount of numbers
+     */
     public MultipleNumberInteraction(Consumer<Integer[]> consumer, int min, int max, int minAmount, int maxAmount) {
         this(consumer, min, max, minAmount, maxAmount, maxAmount <= 1 ? Message.ENTER_NUMBER : Message.ENTER_NUMBERS);
     }
@@ -83,6 +103,7 @@ class MultipleNumberInteraction extends Interaction<Integer[]> {
             }
         }
 
-        return numbers.size() < this.minAmount || numbers.size() > this.maxAmount ? null : numbers.toArray(Integer[]::new);
+        return numbers.size() < this.minAmount || numbers.size() > this.maxAmount
+            ? null : numbers.toArray(Integer[]::new);
     }
 }

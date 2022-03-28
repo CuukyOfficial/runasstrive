@@ -9,6 +9,8 @@ import java.util.function.Consumer;
  * Describes an interaction with the console.
  *
  * @param <T> The type of object this interaction excepts to receive
+ * @author uvgsj
+ * @version v0.1
  */
 public abstract class Interaction<T> implements Interactable<T> {
 
@@ -28,20 +30,25 @@ public abstract class Interaction<T> implements Interactable<T> {
         this.scanner = new Scanner(System.in);
     }
 
-    protected void respond(T response) {
+    private void respond(T response) {
         if (this.consumer != null)
             this.consumer.accept(response);
     }
 
+    private String awaitResponse() {
+        this.printMessage();
+        return this.scanner.nextLine();
+    }
+
+    /**
+     * Prints a given array with into the entry format.
+     *
+     * @param array The array
+     */
     protected void printArray(Object[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(Message.CHOOSE_ENTRY.format(i + 1, array[i]));
         }
-    }
-
-    protected String awaitResponse() {
-        this.printMessage();
-        return this.scanner.nextLine();
     }
 
     @Override

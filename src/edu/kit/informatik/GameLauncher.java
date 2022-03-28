@@ -23,7 +23,7 @@ public class GameLauncher<T extends EntityType> {
 
     /**
      * Uses the given entities to ask the player which character he/she wants to play.
-     * (You can even play as any monster)
+     * (You can even play as any monster).
      *
      * @param entities The entities to choose from
      */

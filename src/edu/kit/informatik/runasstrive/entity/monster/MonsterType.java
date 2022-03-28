@@ -12,50 +12,110 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Contains all the (default) monster types.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public enum MonsterType implements EntityType {
 
     // LEVEL 1
+    /**
+     * The monster spider king
+     */
     SPIDER_KING("Spider King", 50, 1, true, LivingEntityElement.LIGHTNING,
         new AbilityInfo(1, MonsterAbilityType.BITE, MonsterAbilityType.BLOCK, RunaAbilityType.FOCUS,
             MonsterAbilityType.LIGHTNING)),
+    /**
+     * The monster frog
+     */
     FROG("Frog", 16, 1, LivingEntityElement.WATER,
         new AbilityInfo(1, RunaAbilityType.FOCUS, MonsterAbilityType.WATER)),
+    /**
+     * The monster ghost
+     */
     GHOST("Ghost", 15, 1, LivingEntityElement.ICE,
         new AbilityInfo(1, RunaAbilityType.FOCUS, MonsterAbilityType.ICE)),
+    /**
+     * The monster gorgon
+     */
     GORGON("Gorgon", 13, 1, LivingEntityElement.FIRE,
         new AbilityInfo(1, RunaAbilityType.FOCUS, MonsterAbilityType.FIRE)),
+    /**
+     * The monster skeleton
+     */
     SKELETON("Skeleton", 14, 1, LivingEntityElement.LIGHTNING,
         new AbilityInfo(1, RunaAbilityType.FOCUS, MonsterAbilityType.LIGHTNING)),
+    /**
+     * The monster spider
+     */
     SPIDER("Spider", 15, 1,
         new AbilityInfo(1, MonsterAbilityType.BITE, MonsterAbilityType.BLOCK)),
+    /**
+     * The monster goblin
+     */
     GOBLIN("Goblin", 12, 1,
         new AbilityInfo(1, MonsterAbilityType.SMASH, MonsterAbilityType.DEFLECT)),
+    /**
+     * The monster rat
+     */
     RAT("Rat", 14, 1,
         new AbilityInfo(1, MonsterAbilityType.BLOCK, MonsterAbilityType.CLAW)),
+    /**
+     * The monster mushroomlin
+     */
     MUSHROOMLIN("Mushroomlin", 20, 1,
         new AbilityInfo(1, MonsterAbilityType.DEFLECT, MonsterAbilityType.SCRATCH)),
 
     // LEVEL 2
+    /**
+     * The monster mega saurus
+     */
     MEGA_SAURUS("Mega Saurus", 100, 2, true,
         new AbilityInfo(2, MonsterAbilityType.BITE, MonsterAbilityType.BLOCK, RunaAbilityType.FOCUS),
         new AbilityInfo(1, MonsterAbilityType.FIRE, MonsterAbilityType.LIGHTNING)),
+    /**
+     * The monster snake
+     */
     SNAKE("Snake", 31, 2, LivingEntityElement.ICE,
         new AbilityInfo(2, MonsterAbilityType.BITE, RunaAbilityType.FOCUS, MonsterAbilityType.ICE)),
+    /**
+     * The monster dark elf
+     */
     DARK_ELF("Dark Elf", 34, 2,
         new AbilityInfo(2, RunaAbilityType.FOCUS),
         new AbilityInfo(1, MonsterAbilityType.WATER, MonsterAbilityType.LIGHTNING)),
+    /**
+     * The monster shadow blade
+     */
     SHADOW_BLADE("Shadow Blade", 27, 2, LivingEntityElement.LIGHTNING,
         new AbilityInfo(2, MonsterAbilityType.SCRATCH, RunaAbilityType.FOCUS, MonsterAbilityType.LIGHTNING)),
+    /**
+     * The monster hornet
+     */
     HORNET("Hornet", 32, 2, LivingEntityElement.FIRE,
         new AbilityInfo(2, MonsterAbilityType.SCRATCH, RunaAbilityType.FOCUS),
         new AbilityInfo(1, MonsterAbilityType.FIRE),
         new AbilityInfo(2, MonsterAbilityType.FIRE)),
+    /**
+     * The monster tarantula
+     */
     TARANTULA("Tarantula", 33, 2,
         new AbilityInfo(2, MonsterAbilityType.BITE, MonsterAbilityType.BLOCK, MonsterAbilityType.SCRATCH)),
+    /**
+     * The monster bear
+     */
     BEAR("Bear", 40, 2,
         new AbilityInfo(2, MonsterAbilityType.CLAW, MonsterAbilityType.DEFLECT, MonsterAbilityType.BLOCK)),
+    /**
+     * The monster mushroomlon
+     */
     MUSHROOMLON("Mushroomlon", 50, 2,
         new AbilityInfo(2, MonsterAbilityType.DEFLECT, MonsterAbilityType.SCRATCH, MonsterAbilityType.BLOCK)),
+    /**
+     * The monster wild boar
+     */
     WILD_BOAR("Wild Boar", 27, 2,
         new AbilityInfo(2, MonsterAbilityType.SCRATCH, MonsterAbilityType.DEFLECT, MonsterAbilityType.SCRATCH));
 

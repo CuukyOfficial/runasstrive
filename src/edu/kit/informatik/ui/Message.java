@@ -110,6 +110,14 @@ public enum Message {
      * Pick heal cards message
      */
     PICK_HEAL_CARDS("%s (%s/%s HP) can discard ability cards for healing (or none)"),
+    /**
+     * Pick new ability message
+     */
+    PICK_NEW_ABILITY("new ability cards"),
+    /**
+     * Pick next player dice message
+     */
+    PICK_PLAYER_DICE("next player dice"),
 
     // Misc
     /**
