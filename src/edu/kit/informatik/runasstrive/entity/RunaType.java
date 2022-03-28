@@ -8,22 +8,39 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents all types of entity Runa can be.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public enum RunaType implements EntityType {
 
+    /**
+     * Warrior type with default abilities thrust and parry.
+     */
     WARRIOR("Warrior", RunaAbilityType.THRUST, RunaAbilityType.PARRY),
+    /**
+     * Mage type with default abilities focus and water
+     */
     MAGE("Mage", RunaAbilityType.FOCUS, RunaAbilityType.WATER),
+    /**
+     * Paladin type with default abilities focus and water
+     */
     PALADIN("Paladin", RunaAbilityType.SLASH, RunaAbilityType.REFLECT);
 
     private final String typeName;
     private final ApplicableType[] abilities;
 
+    /**
+     * Creates new Runa type.
+     *
+     * @param typeName The name of the type
+     * @param abilities The default abilities
+     */
     RunaType(String typeName, ApplicableType... abilities) {
         this.typeName = typeName;
         this.abilities = abilities;
-    }
-
-    public String getTypeName() {
-        return this.typeName;
     }
 
     @Override
@@ -52,9 +69,9 @@ public enum RunaType implements EntityType {
     }
 
     @Override
-    public List<EntityApplicable> getAbilities(int level) {
+    public List<EntityApplicable> getAbilities(int stage) {
         // Create abilities
-        return Arrays.stream(this.abilities).map(a -> a.createAbility(level)).collect(Collectors.toList());
+        return Arrays.stream(this.abilities).map(a -> a.createAbility(stage)).collect(Collectors.toList());
     }
 
     @Override
@@ -63,7 +80,8 @@ public enum RunaType implements EntityType {
     }
 
     public static RunaType getType(String typeName) {
-        return Arrays.stream(values()).filter(type -> type.getTypeName().equals(typeName))
+        // Filter types and returns matching one
+        return Arrays.stream(values()).filter(type -> type.typeName.equals(typeName))
             .findAny().orElse(null);
     }
 }

@@ -21,18 +21,20 @@ public class RunasStrive implements Game {
     private static final int MAX_LEVELS = 2;
 
     private final SubscriptionHolder eventHandler;
+    private final SeedProvider seedProvider;
     private Player player;
     private Level level;
 
     /**
      * Creates new Runas Strive game and creates new event handler.
      */
-    public RunasStrive() {
+    public RunasStrive(SeedProvider seedProvider) {
         this.eventHandler = new EventHandler();
+        this.seedProvider = seedProvider;
     }
 
     private void startLevel(int level) {
-        this.level = new RunasStriveLevel(this, level);
+        this.level = new RunasStriveLevel(this, level, this.seedProvider);
         this.level.start();
     }
 

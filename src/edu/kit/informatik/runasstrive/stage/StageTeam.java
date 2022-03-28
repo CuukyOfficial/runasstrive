@@ -6,12 +6,25 @@ import edu.kit.informatik.util.SaveIterator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a team of a stage.
+ * For more see @{@link Team}.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public class StageTeam implements Team {
 
     private final Stage stage;
     private final List<Entity> member;
     private SaveIterator<Entity> turn;
 
+    /**
+     * Creates a new team with the given member.
+     *
+     * @param stage The stage of the team
+     * @param member The member of the team
+     */
     StageTeam(Stage stage, List<Entity> member) {
         this.stage = stage;
         this.member = new ArrayList<>(member);

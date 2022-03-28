@@ -24,6 +24,13 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
+/**
+ * Represents any entity of the game.
+ * Handles all abilities, health and focus points.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public abstract class LivingEntity implements Entity {
 
     private final Game game;
@@ -34,6 +41,16 @@ public abstract class LivingEntity implements Entity {
     private int health;
     private int focus;
 
+    /**
+     * Creates a new living entity.
+     * Health will be maxed out by default and default abilities
+     * will be created with stage one.
+     * Also, the focus points will be set to default
+     * and it will create new behaviour.
+     *
+     * @param game The game of the entity
+     * @param type The type of the entity
+     */
     protected LivingEntity(Game game, EntityType type) {
         this.game = game;
         this.type = type;
@@ -92,18 +109,40 @@ public abstract class LivingEntity implements Entity {
         if (this.health <= 0) this.die();
     }
 
+    /**
+     * Adds focus to the entity.
+     *
+     * @param focus The amount of focus
+     */
     protected void addFocus(int focus) {
         this.focus += this.calculateStatChange(this.focus, this.getMaxFocus(), focus, EntityFocusGainEvent::new);
     }
 
+    /**
+     * Damages the entity.
+     *
+     * @param damage The amount of damage
+     * @param attackType The type of attack
+     * @return If any damage can be reflected
+     */
     protected boolean damage(int damage, ApplicableType attackType) {
         this.game.getEventManager().notify(new EntityDamageEvent(this, attackType, damage));
         this.addHealth(-damage);
         return true;
     }
 
+    /**
+     * Gets the max die of the entity.
+     *
+     * @return The max die value
+     */
     protected abstract int getMaxDice();
 
+    /**
+     * Creates new behaviour of the entity.
+     *
+     * @return The behaviour of the entity
+     */
     protected abstract Behaviour createBehaviour();
 
     @Override

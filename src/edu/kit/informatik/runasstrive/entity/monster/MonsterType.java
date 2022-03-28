@@ -67,6 +67,9 @@ public enum MonsterType implements EntityType {
     private final AbilityInfo[] abilities;
 
     MonsterType(String name, int maxHealth, int level, boolean boss, EntityElement element, AbilityInfo... abilities) {
+        if (boss && getBoss(level) != null)
+            throw new IllegalStateException("Cannot have two bosses in one level");
+
         this.name = name;
         this.maxHealth = maxHealth;
         this.level = level;
@@ -113,7 +116,7 @@ public enum MonsterType implements EntityType {
     }
 
     @Override
-    public List<EntityApplicable> getAbilities(int level) {
+    public List<EntityApplicable> getAbilities(int stage) {
         return Arrays.stream(this.abilities).map(AbilityInfo::build)
             .flatMap(List::stream).collect(Collectors.toList());
     }
@@ -123,10 +126,22 @@ public enum MonsterType implements EntityType {
         return this.name;
     }
 
+    /**
+     * Returns all the types of monster spawning in that level except bosses.
+     *
+     * @param level The level
+     * @return The types of monster
+     */
     public static List<MonsterType> getTypes(int level) {
         return Arrays.stream(values()).filter(m -> !m.boss && m.level == level).collect(Collectors.toList());
     }
 
+    /**
+     * Returns the boss of the given level
+     *
+     * @param level The level
+     * @return The boss
+     */
     public static MonsterType getBoss(int level) {
         return Arrays.stream(values()).filter(m -> m.boss && m.level == level).findAny().orElse(null);
     }

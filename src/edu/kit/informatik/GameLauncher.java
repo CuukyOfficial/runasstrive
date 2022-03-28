@@ -7,6 +7,7 @@ import edu.kit.informatik.runasstrive.event.GameStartEvent;
 import edu.kit.informatik.ui.GameOutputListener;
 import edu.kit.informatik.ui.Message;
 import edu.kit.informatik.ui.interaction.ChooseInteraction;
+import edu.kit.informatik.ui.interaction.EnterSeedInteraction;
 
 /**
  * Launches the game with a given entity type as player.
@@ -22,11 +23,12 @@ public class GameLauncher<T extends EntityType> {
 
     /**
      * Uses the given entities to ask the player which character he/she wants to play.
+     * (You can even play as any monster)
      *
      * @param entities The entities to choose from
      */
     GameLauncher(T[] entities) {
-        this.game = new RunasStrive();
+        this.game = new RunasStrive(consumer -> new EnterSeedInteraction(consumer).interact());
         new GameOutputListener(game.getEventManager());
         this.game.getEventManager().notify(new GameStartEvent());
         new ChooseInteraction<>(type -> {

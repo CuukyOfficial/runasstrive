@@ -9,7 +9,6 @@ import edu.kit.informatik.runasstrive.event.entity.EntityStageEnterEvent;
 import edu.kit.informatik.runasstrive.stage.RunasStriveStage;
 import edu.kit.informatik.runasstrive.stage.Stage;
 import edu.kit.informatik.runasstrive.stage.Team;
-import edu.kit.informatik.ui.interaction.EnterSeedInteraction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +22,8 @@ import java.util.stream.Stream;
  * This class will take care of shuffling the cards
  * and spawning the monsters in all the stages.
  * It will also give the winner team their rewards.
- * The given seeds will be used to shuffle the abilities and monsters.
+ *
+ * It will request seeds to shuffle the abilities and monsters.
  * The seed at index 0 will be used to shuffle the player abilities.
  * The seed at index 1 will be used to shuffle the monsters.
  *
@@ -42,6 +42,7 @@ public class RunasStriveLevel implements Level {
     private final int level;
     private final List<EntityApplicable> playerAbilities;
     private final List<Entity> monsters;
+    private final SeedProvider seedProvider;
     private Stage stage;
 
     /**
@@ -50,11 +51,12 @@ public class RunasStriveLevel implements Level {
      * @param game The game of the level
      * @param level The level number of the level
      */
-    RunasStriveLevel(Game game, int level) {
+    RunasStriveLevel(Game game, int level, SeedProvider seedProvider) {
         this.game = game;
         this.level = level;
         this.playerAbilities = new ArrayList<>();
         this.monsters = new ArrayList<>();
+        this.seedProvider = seedProvider;
     }
 
     private int getMonsterAmount(int room) {
@@ -106,7 +108,7 @@ public class RunasStriveLevel implements Level {
 
     @Override
     public void start() {
-        new EnterSeedInteraction(this::start).interact();
+        this.seedProvider.requestSeeds(this::start);
     }
 
     @Override

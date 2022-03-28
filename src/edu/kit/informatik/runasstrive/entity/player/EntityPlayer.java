@@ -9,10 +9,25 @@ import edu.kit.informatik.runasstrive.entity.LivingEntity;
 import edu.kit.informatik.runasstrive.event.entity.PlayerDiceUpgradeEvent;
 import edu.kit.informatik.ui.UserInput;
 
+/**
+ * Represents the entity player.
+ * It contains a die, and it cannot have less focus points
+ * than one. Also, if the player dice the attack that
+ * killed it will not be reflected.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public class EntityPlayer extends LivingEntity implements Player {
 
     private Dice dice;
 
+    /**
+     * Creates a new player.
+     *
+     * @param game The game of the player
+     * @param entityType The type of the player
+     */
     public EntityPlayer(Game game, EntityType entityType) {
         super(game, entityType);
 

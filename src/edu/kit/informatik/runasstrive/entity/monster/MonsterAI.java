@@ -11,25 +11,37 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * Represents the Monster AI.
+ * It will just take the next available ability every
+ * time it can choose.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public class MonsterAI extends SkipNoChoiceBehaviour implements Behaviour {
 
     private final Entity entity;
     private SaveIterator<EntityApplicable> iterator;
 
+    /**
+     * Creates a new Monster AI of a given entity.
+     *
+     * @param entity The entity
+     */
     public MonsterAI(Entity entity) {
         this.entity = entity;
     }
 
-    private List<EntityApplicable> checkOptions(EntityApplicable[] options) {
+    private void checkOptions(EntityApplicable[] options) {
         List<EntityApplicable> abilities = Arrays.stream(options).collect(Collectors.toList());
         if (this.iterator == null || !this.iterator.isEqual(abilities))
             this.iterator = new SaveIterator<>(abilities);
-        return abilities;
     }
 
     @Override
     public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
-        List<EntityApplicable> abilities = this.checkOptions(options);
+        this.checkOptions(options);
         EntityApplicable chosen = this.iterator.next();
         if (!this.entity.canPerform(chosen))
             this.chooseAbility(consumer, options);

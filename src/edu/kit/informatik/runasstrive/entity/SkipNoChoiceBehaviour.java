@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * Represents behaviour where every choice where
+ * the choice cannot be made due to obvious reasons, will be executed automatically.
+ *
+ * @author uvgsj
+ * @version v0.1
+ */
 public abstract class SkipNoChoiceBehaviour implements Behaviour {
 
     @Override
@@ -19,12 +26,6 @@ public abstract class SkipNoChoiceBehaviour implements Behaviour {
         else this.chooseSaveEnemy(consumer, entities);
     }
 
-   // @Override
-   // public void chooseAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options) {
-   //     if (options.length == 1) consumer.accept(options[0]);
-   //     else this.chooseSaveAbility(consumer, options);
-   // }
-
     @Override
     public void chooseHealDiscard(Consumer<List<EntityApplicable>> consumer, List<EntityApplicable> abilities) {
         if (abilities.size() <= 1 || this.getEntity().getHealth() == this.getEntity().getMaxHealth())
@@ -32,12 +33,31 @@ public abstract class SkipNoChoiceBehaviour implements Behaviour {
         else this.chooseSaveHealDiscard(consumer, abilities);
     }
 
+    /**
+     * Chooses an enemy from the given opponents.
+     * The amount of enemies in this list will never be one.
+     *
+     * @param consumer The consumer of the opponent
+     * @param enemies The given opponents
+     */
     public abstract void chooseSaveEnemy(Consumer<Entity> consumer, List<Entity> enemies);
 
-    // public abstract void chooseSaveAbility(Consumer<EntityApplicable> consumer, EntityApplicable[] options);
-
+    /**
+     * Chooses the abilities to be discarded to gain health.
+     * The amount of abilities will never be equal or less than one.
+     * Furthermore, this method will not be executed if the entity
+     * is already at full health.
+     *
+     * @param consumer The consumer of discarded abilities
+     * @param abilities The abilities to be chosen from
+     */
     public abstract void chooseSaveHealDiscard(Consumer<List<EntityApplicable>> consumer,
                                                List<EntityApplicable> abilities);
 
+    /**
+     * Returns the entity of the behaviour.
+     *
+     * @return The entity
+     */
     public abstract Entity getEntity();
 }
