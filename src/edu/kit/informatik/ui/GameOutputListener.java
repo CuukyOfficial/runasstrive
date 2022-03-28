@@ -2,7 +2,7 @@ package edu.kit.informatik.ui;
 
 import edu.kit.informatik.runasstrive.ability.EntityApplicable;
 import edu.kit.informatik.runasstrive.entity.Entity;
-import edu.kit.informatik.runasstrive.entity.player.EntityPlayer;
+import edu.kit.informatik.runasstrive.entity.RunaType;
 import edu.kit.informatik.runasstrive.event.GameEndEvent;
 import edu.kit.informatik.runasstrive.event.GameStartEvent;
 import edu.kit.informatik.runasstrive.event.SubscriptionHolder;
@@ -50,7 +50,7 @@ public class GameOutputListener {
     }
 
     private boolean isPlayer(Entity entity) {
-        return entity instanceof EntityPlayer;
+        return Arrays.stream(RunaType.values()).anyMatch(entity.getType()::equals);
     }
 
     private void onGameStart(GameStartEvent event) {
