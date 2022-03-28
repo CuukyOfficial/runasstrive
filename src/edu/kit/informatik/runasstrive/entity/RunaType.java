@@ -29,6 +29,8 @@ public enum RunaType implements EntityType {
      */
     PALADIN("Paladin", RunaAbilityType.SLASH, RunaAbilityType.REFLECT);
 
+    private static final int RUNA_HEALTH = 50;
+
     private final String typeName;
     private final ApplicableType[] abilities;
 
@@ -50,7 +52,7 @@ public enum RunaType implements EntityType {
 
     @Override
     public int getMaxHealth() {
-        return 50;
+        return RUNA_HEALTH;
     }
 
     @Override

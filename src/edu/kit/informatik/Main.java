@@ -10,6 +10,8 @@ import edu.kit.informatik.runasstrive.entity.RunaType;
  */
 public final class Main {
 
+    private Main() {}
+
     /**
      * Main Method.
      * Launches the game and tells it to use Runa as character selection.
