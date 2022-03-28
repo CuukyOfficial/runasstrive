@@ -33,6 +33,8 @@ import java.util.function.Consumer;
  */
 public abstract class LivingEntity implements Entity {
 
+    private static final int HEALTH_PER_CARD = 10;
+
     private final Game game;
     private final EntityType type;
     private final List<EntityApplicable> abilities;
@@ -76,7 +78,7 @@ public abstract class LivingEntity implements Entity {
 
     private void trade(Runnable onComplete, List<EntityApplicable> trade) {
         this.abilities.removeAll(trade);
-        this.addHealth(trade.size() * 10);
+        this.addHealth(trade.size() * HEALTH_PER_CARD);
         onComplete.run();
     }
 
