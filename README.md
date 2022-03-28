@@ -1,3 +1,2 @@
-# Programmieraufgabe - Repository Vorlage
-Im Verzeichnis src/ sind alle Quelltextdateien und Pakete abzulegen.
-Elemente außerhalb des src/ Verzeichnisses werden nicht kompiliert und folglich nicht berücksichtigt.
+# Runa's Strive Game
+The game I coded for my final exam for my universitiy.
