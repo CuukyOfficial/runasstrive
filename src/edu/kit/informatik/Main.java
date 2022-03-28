@@ -1,6 +1,7 @@
 package edu.kit.informatik;
 
 import edu.kit.informatik.runasstrive.entity.RunaType;
+import edu.kit.informatik.ui.Message;
 
 /**
  * Main class to launch the game.
@@ -10,7 +11,8 @@ import edu.kit.informatik.runasstrive.entity.RunaType;
  */
 public final class Main {
 
-    private Main() {}
+    private Main() {
+    }
 
     /**
      * Main Method.
@@ -20,7 +22,7 @@ public final class Main {
      */
     public static void main(String[] args) {
         if (args.length != 0) {
-            System.out.println("Error, no start arguments expected");
+            System.out.println(Message.WRONG_START_ARGUMENTS);
             return;
         }
 

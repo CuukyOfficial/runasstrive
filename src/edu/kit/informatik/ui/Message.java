@@ -121,6 +121,10 @@ public enum Message {
 
     // Misc
     /**
+     * Wrong start arguments
+     */
+    WRONG_START_ARGUMENTS("Error, no start arguments expected"),
+    /**
      * Choose entry format
      */
     CHOOSE_ENTRY("%s) %s"),
