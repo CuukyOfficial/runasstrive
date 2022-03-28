@@ -10,6 +10,10 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class PierceAbility extends OffensiveAbility {
 
+    private static final int PIERCE_MULTIPLIER = 7;
+    private static final int PIERCE_ADD_LIMIT = 6;
+    private static final int PIERCE_ADD_MULTIPLIER = 5;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -21,7 +25,7 @@ class PierceAbility extends OffensiveAbility {
 
     @Override
     protected int getDamage(int focus, int dice) {
-        int add = dice >= 6 ? 5 * this.level : 0;
-        return 7 * this.level + dice + add;
+        int add = dice >= PIERCE_ADD_LIMIT ? PIERCE_ADD_MULTIPLIER * this.level : 0;
+        return PIERCE_MULTIPLIER * this.level + dice + add;
     }
 }

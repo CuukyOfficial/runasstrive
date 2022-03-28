@@ -9,6 +9,10 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class RunaIceAbility extends RunaMagicOffensiveAbility {
 
+    private static final int MAGIC_MULTIPLIER = 2;
+    private static final int MAGIC_ADD_ONE = 4;
+    private static final int MAGIC_ADD_TWO = 2;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +24,6 @@ class RunaIceAbility extends RunaMagicOffensiveAbility {
 
     @Override
     protected int getDamage(int focus, int dice) {
-        return (2 * this.level + 4) * focus + 2;
+        return (MAGIC_MULTIPLIER * this.level + MAGIC_ADD_ONE) * focus + MAGIC_ADD_TWO;
     }
 }

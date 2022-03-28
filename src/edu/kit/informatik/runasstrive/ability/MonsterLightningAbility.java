@@ -9,6 +9,9 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class MonsterLightningAbility extends MonsterMagicOffensiveAbility {
 
+    private static final int LIGHTNING_MULTIPLIER = 14;
+    private static final int LIGHTNING_ADD = 2;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +23,6 @@ class MonsterLightningAbility extends MonsterMagicOffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 14 * this.level + 2;
+        return LIGHTNING_MULTIPLIER * this.level + LIGHTNING_ADD;
     }
 }

@@ -11,6 +11,8 @@ import edu.kit.informatik.runasstrive.ability.action.OffensiveTargetActionInfo;
  */
 class BlockAbility extends DefensiveAbility {
 
+    private static final int BLOCK_MULTIPLIER = 7;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -22,6 +24,6 @@ class BlockAbility extends DefensiveAbility {
 
     @Override
     protected int getDefend(OffensiveTargetActionInfo action) {
-        return 7 * this.level;
+        return BLOCK_MULTIPLIER * this.level;
     }
 }

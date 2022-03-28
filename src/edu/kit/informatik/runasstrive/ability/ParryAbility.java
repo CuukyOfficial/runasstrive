@@ -11,6 +11,8 @@ import edu.kit.informatik.runasstrive.ability.action.OffensiveTargetActionInfo;
  */
 class ParryAbility extends DefensiveAbility {
 
+    private static final int PARRY_MULTIPLIER = 7;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -22,6 +24,6 @@ class ParryAbility extends DefensiveAbility {
 
     @Override
     protected int getDefend(OffensiveTargetActionInfo action) {
-        return 7 * this.level;
+        return PARRY_MULTIPLIER * this.level;
     }
 }

@@ -10,6 +10,8 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class ScratchAbility extends OffensiveAbility {
 
+    private static final int SCRATCH_MULTIPLIER = 5;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -26,6 +28,6 @@ class ScratchAbility extends OffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 5 * this.level;
+        return SCRATCH_MULTIPLIER * this.level;
     }
 }

@@ -9,6 +9,10 @@ package edu.kit.informatik.runasstrive.ability;
  */
 public class RunaLightningAbility extends RunaMagicOffensiveAbility {
 
+    private static final int LIGHTNING_MULTIPLIER = 2;
+    private static final int LIGHTNING_ADD_ONE = 5;
+    private static final int LIGHTNING_ADD_TWO = 2;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +24,6 @@ public class RunaLightningAbility extends RunaMagicOffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return (2 * this.level + 5) * focus + 2;
+        return (LIGHTNING_MULTIPLIER * this.level + LIGHTNING_ADD_ONE) * focus + LIGHTNING_ADD_TWO;
     }
 }

@@ -10,6 +10,8 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class SwingAbility extends OffensiveAbility {
 
+    private static final int SWING_MULTIPLIER = 5;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -26,6 +28,6 @@ class SwingAbility extends OffensiveAbility {
 
     @Override
     protected int getDamage(int focus, int dice) {
-        return 5 * this.level + dice;
+        return SWING_MULTIPLIER * this.level + dice;
     }
 }

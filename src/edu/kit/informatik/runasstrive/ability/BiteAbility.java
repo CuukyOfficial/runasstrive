@@ -9,6 +9,8 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class BiteAbility extends OffensiveAbility {
 
+    private static final int BITE_MULTIPLIER = 10;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +22,6 @@ class BiteAbility extends OffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 10 * this.level;
+        return BITE_MULTIPLIER * this.level;
     }
 }

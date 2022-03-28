@@ -10,6 +10,8 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class ClawAbility extends OffensiveAbility {
 
+    private static final int CLAW_MULTIPLIER = 6;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -26,6 +28,6 @@ class ClawAbility extends OffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 6 * this.level;
+        return CLAW_MULTIPLIER * this.level;
     }
 }

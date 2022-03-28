@@ -9,6 +9,9 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class MonsterWaterAbility extends MonsterMagicOffensiveAbility {
 
+    private static final int WATER_MULTIPLIER = 8;
+    private static final int WATER_ADD = 2;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +23,6 @@ class MonsterWaterAbility extends MonsterMagicOffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 8 * this.level + 2;
+        return WATER_MULTIPLIER * this.level + WATER_ADD;
     }
 }

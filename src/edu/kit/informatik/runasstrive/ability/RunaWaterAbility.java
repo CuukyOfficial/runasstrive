@@ -9,6 +9,9 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class RunaWaterAbility extends RunaMagicOffensiveAbility {
 
+    private static final int WATER_MULTIPLIER = 2;
+    private static final int WATER_ADD = 4;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +23,6 @@ class RunaWaterAbility extends RunaMagicOffensiveAbility {
 
     @Override
     public int getDamage(int focus, int dice) {
-        return (2 * this.level + 4) * focus;
+        return (WATER_MULTIPLIER * this.level + WATER_ADD) * focus;
     }
 }

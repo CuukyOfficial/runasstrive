@@ -11,6 +11,8 @@ import edu.kit.informatik.runasstrive.ability.action.OffensiveTargetActionInfo;
  */
 class ReflectAbility extends ReflectiveAbility {
 
+    private static final int REFLECT_MULTIPLIER = 10;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -22,6 +24,6 @@ class ReflectAbility extends ReflectiveAbility {
 
     @Override
     protected int getReflect(OffensiveTargetActionInfo action) {
-        return 10 * this.level;
+        return REFLECT_MULTIPLIER * this.level;
     }
 }

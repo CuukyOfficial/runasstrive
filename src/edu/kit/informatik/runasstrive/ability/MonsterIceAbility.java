@@ -9,6 +9,9 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class MonsterIceAbility extends MonsterMagicOffensiveAbility {
 
+    private static final int ICE_MULTIPLIER = 10;
+    private static final int ICE_ADD = 2;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -20,6 +23,6 @@ class MonsterIceAbility extends MonsterMagicOffensiveAbility {
 
     @Override
     int getDamage(int focus, int dice) {
-        return 10 * this.level + 2;
+        return ICE_MULTIPLIER * this.level + ICE_ADD;
     }
 }

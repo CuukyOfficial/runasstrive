@@ -10,6 +10,8 @@ package edu.kit.informatik.runasstrive.ability;
  */
 class SlashAbility extends OffensiveAbility {
 
+    private static final int SLASH_MULTIPLIER = 4;
+
     /**
      * Creates a new ability with the given level.
      *
@@ -26,6 +28,6 @@ class SlashAbility extends OffensiveAbility {
 
     @Override
     public int getDamage(int focus, int dice) {
-        return 4 * this.level + dice;
+        return SLASH_MULTIPLIER * this.level + dice;
     }
 }
