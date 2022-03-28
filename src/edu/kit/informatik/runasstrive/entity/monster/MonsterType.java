@@ -127,9 +127,6 @@ public enum MonsterType implements EntityType {
     private final AbilityInfo[] abilities;
 
     MonsterType(String name, int maxHealth, int level, boolean boss, EntityElement element, AbilityInfo... abilities) {
-        if (boss && getBoss(level) != null)
-            throw new IllegalStateException("Cannot have two bosses in one level");
-
         this.name = name;
         this.maxHealth = maxHealth;
         this.level = level;
